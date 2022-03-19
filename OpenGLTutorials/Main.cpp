@@ -57,17 +57,24 @@ int main()
     // build and compile our shader program
     // ------------------------------------
 
-    std::vector<Shader::ShaderData> shaders =
+    std::vector<Shader::ShaderData> shaders1 =
     { 
         Shader::ShaderData(Shader::Type::VERTEX,"VShader.vs") ,
         Shader::ShaderData(Shader::Type::GEOMETRY,"GShader.gs"),
         Shader::ShaderData(Shader::Type::FRAGMENT,"FShader.fs")
      };
 
+    std::vector<Shader::ShaderData> shaders2 =
+    { 
+        Shader::ShaderData(Shader::Type::VERTEX,"TrivialVShader.vs") ,
+        Shader::ShaderData(Shader::Type::FRAGMENT,"TrivialFShader.fs")
+     };
+
     ShaderManager* shManager = ShaderManager::getInstance();
-    shManager->AddProgramm("RoundRect",shaders);
-    glm::vec3 pos(-0.3, -0.3, 0);
-;   rect = new Rectangle (0.6,0.6, pos, 0.1);
+    shManager->AddProgramm("RoundRect",shaders1);
+    shManager->AddProgramm("SimpleShader", shaders2);
+    glm::vec3 pos(0, 0, 0);
+;   rect = new Rectangle (0.9,0.9, pos, 0.1);
     
     shManager->GetProgramm("RoundRect")->use();
     while (!glfwWindowShouldClose(window))
@@ -108,10 +115,16 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 
     if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        rect->SetX(rect->GetX() - 0.0001);
+        rect->SetX(rect->GetX() - 0.001);
 
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        rect->SetX(rect->GetX() + 0.0001);
+        rect->SetX(rect->GetX() + 0.001);
+
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+        rect->SetY(rect->GetY() - 0.001);
+
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+        rect->SetY(rect->GetY() + 0.001);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
