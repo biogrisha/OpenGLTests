@@ -20,10 +20,12 @@ mat3 aMat3_2 = mat3(1.0, 0.0, 0.0,  // 1. column
 
 float widthCoef;
 float heightCoef;
+uniform int mode;
 
 void main()
 {
-
+    if(mode == 1)
+    {
         aMat3_1[0][0] = 0.0025;
         aMat3_1[1][1] = 0.0033333;
 
@@ -51,5 +53,10 @@ void main()
         {
         discard;
         }  
+    }
+    else if(mode == 2)
+    {
+        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    }
   
 }  

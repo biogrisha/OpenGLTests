@@ -165,6 +165,7 @@
   <ItemGroup>
     <None Include="FShader.fs" />
     <None Include="GShader.gs" />
+    <None Include="Note.xlsx" />
     <None Include="TrivialFShader.fs" />
     <None Include="TrivialVShader.vs" />
     <None Include="VShader.vs" />

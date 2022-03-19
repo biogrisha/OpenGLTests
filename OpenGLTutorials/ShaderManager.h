@@ -22,12 +22,12 @@ private:
 
     //Functionality
 public:
-    void AddProgramm(std::string programName,std::vector<ShaderData> shaderData)
+    void AddProgram(std::string programName,std::vector<ShaderData> shaderData)
     {
         shaders.insert(std::pair<std::string, Shader>(programName, Shader(shaderData)));
     }
 
-    const Shader* GetProgramm(std::string name)
+    const Shader* GetProgram(std::string name)
     {
         auto el = shaders.find(name);
         if (el != shaders.end()) {

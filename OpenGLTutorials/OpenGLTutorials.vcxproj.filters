@@ -81,5 +81,6 @@
     <None Include="VShader.vs">
       <Filter>Source Files\ShaderFiles</Filter>
     </None>
+    <None Include="Note.xlsx" />
   </ItemGroup>
 </Project>

@@ -31,5 +31,5 @@ private:
 
 	unsigned int VBO, VAO, EBO;
 
-	ShaderManager* shManager;
+	const Shader* shader;
 };

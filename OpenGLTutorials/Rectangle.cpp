@@ -3,7 +3,7 @@
 Rectangle::Rectangle(float width, float height, glm::vec3 Pos, float rounding) :Pos {Pos}
 {
 
-    shManager = ShaderManager::getInstance();
+    shader = ShaderManager::getInstance()->GetProgram("RoundRect");
     float halfWidth = width / 2;
     float halfHeight = height / 2;
     float xRounding = halfWidth - rounding;
@@ -59,12 +59,11 @@ Rectangle::~Rectangle()
 
 void Rectangle::Draw()
 {
-    shManager->GetProgramm("RoundRect")->use();
     glBindVertexArray(VAO);
-    shManager->GetProgramm("RoundRect")->setVec3("transform", Pos);
+    shader->setVec3("transform", Pos);
+    shader->setInt("mode", 1);
     glDrawArrays(GL_TRIANGLES, 0, 12);
-    shManager->GetProgramm("SimpleShader")->use();
-    shManager->GetProgramm("SimpleShader")->setVec3("transform", Pos);
+    shader->setInt("mode", 2);
     glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }

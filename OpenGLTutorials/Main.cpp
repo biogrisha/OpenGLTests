@@ -71,12 +71,12 @@ int main()
      };
 
     ShaderManager* shManager = ShaderManager::getInstance();
-    shManager->AddProgramm("RoundRect",shaders1);
-    shManager->AddProgramm("SimpleShader", shaders2);
+    shManager->AddProgram("RoundRect",shaders1);
+    shManager->AddProgram("SimpleShader", shaders2);
     glm::vec3 pos(0, 0, 0);
 ;   rect = new Rectangle (0.9,0.9, pos, 0.1);
     
-    shManager->GetProgramm("RoundRect")->use();
+    shManager->GetProgram("RoundRect")->use();
     while (!glfwWindowShouldClose(window))
     {
         // input
