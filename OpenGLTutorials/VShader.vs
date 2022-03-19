@@ -5,8 +5,9 @@ flat out VS_OUT {
     vec3 pos;
 } vs_out;
 
+uniform vec3 transform;
 void main()
 {
-    vs_out.pos = aPos;
-    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0); 
+    vs_out.pos = aPos + transform;
+    gl_Position = vec4(aPos + transform, 1.0); 
 }  

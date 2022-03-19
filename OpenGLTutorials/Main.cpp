@@ -6,10 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader_s.h"
 #include <vector>
 #include <iostream>
 
+#include "shader_s.h"
+#include "Rectangle.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -18,6 +19,7 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+Rectangle* rect;
 int main()
 {
 
@@ -64,47 +66,10 @@ int main()
 
     //Shader ourShader("VShader.vs", "FShader.fs");
     Shader ourShader(shaders);
-
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    float vertices[] = {
-        // first triangle
-         0.5f,  1.0f, 1.0f,  // top right
-         0.5f, 0.5f, 1.0f,  // bottom right
-        0.0f,  1.0f, 1.0f,  // top left 
-        // second triangle
-        -1.0f, -1.0f, 1.0f,  // bottom left
-        -1.0f,  -0.5f, 1.0f,   // top left
-        -0.5f, -1.0f, 1.0f,  // bottom right
-        // third triangle
-        0.5f, -1.0f, 1.0f,  // bottom right
-        0.5f,  -0.5f, 1.0f,   // top right
-        0.0f, -1.0f, 1.0f,  // bottom left
-        // fourth triangle
-        -1.0f, 1.0f, 1.0f,  // top left
-        -1.0f,  0.5f, 1.0f,   // bottom left
-        -0.5f, 1.0f, 1.0f  // top right
-    };
-    unsigned int VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);
-    // render loop
-    // -----------
+    glm::vec3 pos(-0.3, -0.3, 0);
+;   rect = new Rectangle (0.6,0.6, pos, 0.1,&ourShader);
+    
+    ourShader.use();
     while (!glfwWindowShouldClose(window))
     {
         // input
@@ -117,10 +82,8 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         // render the triangle
-        ourShader.use();
-        glBindVertexArray(VAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 12);
+        rect->Draw();
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -128,13 +91,11 @@ int main()
         glfwPollEvents();
     }
 
-    // optional: de-allocate all resources once they've outlived their purpose:
-    // ------------------------------------------------------------------------
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
+
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
+    delete rect;
     glfwTerminate();
     return 0;
 }
@@ -145,6 +106,12 @@ void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+        rect->SetX(rect->GetX() - 0.0001);
+
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+        rect->SetX(rect->GetX() + 0.0001);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
