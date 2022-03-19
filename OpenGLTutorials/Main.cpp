@@ -9,7 +9,7 @@
 #include <vector>
 #include <iostream>
 
-#include "shader_s.h"
+#include "ShaderManager.h"
 #include "Rectangle.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -64,12 +64,12 @@ int main()
         Shader::ShaderData(Shader::Type::FRAGMENT,"FShader.fs")
      };
 
-    //Shader ourShader("VShader.vs", "FShader.fs");
-    Shader ourShader(shaders);
+    ShaderManager* shManager = ShaderManager::getInstance();
+    shManager->AddProgramm("RoundRect",shaders);
     glm::vec3 pos(-0.3, -0.3, 0);
-;   rect = new Rectangle (0.6,0.6, pos, 0.1,&ourShader);
+;   rect = new Rectangle (0.6,0.6, pos, 0.1);
     
-    ourShader.use();
+    shManager->GetProgramm("RoundRect")->use();
     while (!glfwWindowShouldClose(window))
     {
         // input

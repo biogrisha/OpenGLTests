@@ -19,8 +19,11 @@
     <Filter Include="Source Files\Texture">
       <UniqueIdentifier>{76e97167-3217-467d-99bb-f8c072cd3070}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Position">
-      <UniqueIdentifier>{dbd20f49-1fd1-4cb6-ab20-17c12e8ca706}</UniqueIdentifier>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{3cbb6603-e802-44ba-ad49-42047eaf2d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ShaderFiles">
+      <UniqueIdentifier>{bb2c8951-cb9d-4974-81f0-04993844b474}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,9 +41,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shader_s.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -49,6 +49,12 @@
     </ClInclude>
     <ClInclude Include="Color.h">
       <Filter>Source Files\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_s.h">
+      <Filter>Source Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>Source Files\Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,8 +66,20 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="VShader.vs" />
-    <None Include="FShader.fs" />
-    <None Include="GShader.gs" />
+    <None Include="FShader.fs">
+      <Filter>Source Files\ShaderFiles</Filter>
+    </None>
+    <None Include="GShader.gs">
+      <Filter>Source Files\ShaderFiles</Filter>
+    </None>
+    <None Include="TrivialFShader.fs">
+      <Filter>Source Files\ShaderFiles</Filter>
+    </None>
+    <None Include="TrivialVShader.vs">
+      <Filter>Source Files\ShaderFiles</Filter>
+    </None>
+    <None Include="VShader.vs">
+      <Filter>Source Files\ShaderFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

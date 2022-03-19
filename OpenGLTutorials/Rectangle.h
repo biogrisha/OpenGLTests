@@ -7,13 +7,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader_s.h"
+#include "ShaderManager.h"
 #include "Color.h"
 
 class Rectangle
 {
 public:
-	Rectangle(float width, float height, glm::vec3 Pos, float rounding, const Shader* shader);
+	Rectangle(float width, float height, glm::vec3 Pos, float rounding);
 	~Rectangle();
 	void Draw();
 
@@ -25,10 +25,11 @@ public:
 
 private:
 	std::vector<float> vertices;
+	std::vector<unsigned int> indices;
 
 	glm::vec3 Pos;
 
-	unsigned int VBO, VAO;
+	unsigned int VBO, VAO, EBO;
 
-	const Shader* shader;
+	ShaderManager* shManager;
 };
