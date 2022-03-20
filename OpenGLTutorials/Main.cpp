@@ -64,19 +64,15 @@ int main()
         Shader::ShaderData(Shader::Type::FRAGMENT,"FShader.fs")
      };
 
-    std::vector<Shader::ShaderData> shaders2 =
-    { 
-        Shader::ShaderData(Shader::Type::VERTEX,"TrivialVShader.vs") ,
-        Shader::ShaderData(Shader::Type::FRAGMENT,"TrivialFShader.fs")
-     };
-
     ShaderManager* shManager = ShaderManager::getInstance();
     shManager->AddProgram("RoundRect",shaders1);
-    shManager->AddProgram("SimpleShader", shaders2);
     glm::vec3 pos(0, 0, 0);
-;   rect = new Rectangle (0.9,0.9, pos, 0.1);
+    glm::vec3 color(1, 0, 0);
+    rect = new Rectangle (0.9,0.9, pos,color, 0.1);
     
     shManager->GetProgram("RoundRect")->use();
+    
+
     while (!glfwWindowShouldClose(window))
     {
         // input
@@ -88,9 +84,8 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // render the triangle
-        rect->Draw();
 
+        rect->Draw();
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

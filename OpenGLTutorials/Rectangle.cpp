@@ -1,14 +1,14 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(float width, float height, glm::vec3 Pos, float rounding) :Pos {Pos}
+Rectangle::Rectangle(float width, float height, glm::vec3 pos, glm::vec3 color, float rounding) :m_pos {pos},m_color{color}
 {
 
-    shader = ShaderManager::getInstance()->GetProgram("RoundRect");
+    m_shader = ShaderManager::getInstance()->GetProgram("RoundRect");
     float halfWidth = width / 2;
     float halfHeight = height / 2;
     float xRounding = halfWidth - rounding;
     float yRounding = halfHeight - rounding;
-	vertices = {
+	m_vertices = {
         //x    y     z
         // first triangle
         -halfWidth, halfHeight, 1.0f,      // 0 top left
@@ -28,7 +28,7 @@ Rectangle::Rectangle(float width, float height, glm::vec3 Pos, float rounding) :
         xRounding, -halfHeight, 1.0f,      // 11 bottom left 6
     };
 
-    indices = { 1,7,2,8,5,11,4,10 };
+    m_indices = { 1,7,2,8,5,11,4,10 };
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -36,10 +36,10 @@ Rectangle::Rectangle(float width, float height, glm::vec3 Pos, float rounding) :
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)* vertices.size(), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)* m_vertices.size(), &m_vertices[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * m_indices.size(), &m_indices[0], GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -47,6 +47,8 @@ Rectangle::Rectangle(float width, float height, glm::vec3 Pos, float rounding) :
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
+    
+
 
 
 }
@@ -60,30 +62,31 @@ Rectangle::~Rectangle()
 void Rectangle::Draw()
 {
     glBindVertexArray(VAO);
-    shader->setVec3("transform", Pos);
-    shader->setInt("mode", 1);
+    m_shader->setVec3("transform", m_pos);
+    m_shader->setVec3("color", m_color);
+    m_shader->setInt("mode", 1);
     glDrawArrays(GL_TRIANGLES, 0, 12);
-    shader->setInt("mode", 2);
+    m_shader->setInt("mode", 2);
     glDrawElements(GL_TRIANGLE_STRIP, 8, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
 void Rectangle::SetX(float x)
 {
-    Pos.x = x;
+    m_pos.x = x;
 }
 
 void Rectangle::SetY(float y)
 {
-    Pos.y = y;
+    m_pos.y = y;
 }
 
 float Rectangle::GetX()
 {
-    return Pos.x;
+    return m_pos.x;
 }
 
 float Rectangle::GetY()
 {
-    return Pos.y;
+    return m_pos.y;
 }

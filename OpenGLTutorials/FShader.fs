@@ -21,6 +21,7 @@ mat3 aMat3_2 = mat3(1.0, 0.0, 0.0,  // 1. column
 float widthCoef;
 float heightCoef;
 uniform int mode;
+uniform vec3 color;
 
 void main()
 {
@@ -47,7 +48,7 @@ void main()
 
         if((fVect3.y *fVect3.y)+(fVect3.x *fVect3.x)<1)
         {
-            FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+            FragColor = vec4(color, 1.0f);
         }
         else
         {
@@ -56,7 +57,7 @@ void main()
     }
     else if(mode == 2)
     {
-        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+        FragColor = vec4(color, 1.0f);
     }
   
 }  
