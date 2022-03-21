@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Line">
       <UniqueIdentifier>{bb305148-b999-4678-9741-60c81ad4d8fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Line\LineDrawers">
+      <UniqueIdentifier>{5e549321-d63a-47ed-956d-b49973fccf34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -41,9 +44,6 @@
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\Rectangle</Filter>
-    </ClCompile>
-    <ClCompile Include="Line.cpp">
-      <Filter>Source Files\Line</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Source Files\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="LineDrawer.h">
+      <Filter>Source Files\Line\LineDrawers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,5 +94,8 @@
       <Filter>Source Files\ShaderFiles</Filter>
     </None>
     <None Include="Note.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Draft.txt" />
   </ItemGroup>
 </Project>

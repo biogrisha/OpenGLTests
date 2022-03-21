@@ -1,0 +1,6 @@
+VAO manager
+
+LineDrawer wants to update VBO
+The VAO has a specific layout, so when we bind any LineDrawer to the VAO, the LineDrawer must explicitly tell its layout, and then the VAO manager must return its ID, with which the LineDrawer or any other drawing implementation class can access its data in the VAO.
+
+need to find way to add new vertices to  VAO when it stores many objects

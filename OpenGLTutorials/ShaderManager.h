@@ -11,8 +11,8 @@ public:
 
     static ShaderManager* getInstance()
     {
-        static ShaderManager    instance; // Guaranteed to be destroyed.
-                                // Instantiated on first use.
+        static ShaderManager    instance; 
+                             
         return &instance;
     }
 private:
@@ -20,7 +20,6 @@ private:
     ShaderManager(ShaderManager const&); 
     void operator=(ShaderManager const&); 
 
-    //Functionality
 public:
     void AddProgram(std::string programName,std::vector<ShaderData> shaderData)
     {
