@@ -1,6 +1,100 @@
-VAO manager
+/*VAO manager
 
 LineDrawer wants to update VBO
 The VAO has a specific layout, so when we bind any LineDrawer to the VAO, the LineDrawer must explicitly tell its layout, and then the VAO manager must return its ID, with which the LineDrawer or any other drawing implementation class can access its data in the VAO.
 
-need to find way to add new vertices to  VAO when it stores many objects
+VAO class
+
+Create Shared VBO, EBO 
+spec size
+
+BatchManager * batchManager = BatchManager::GetInstance();
+
+unsigned int buffer;
+vector<int> attributes = {4,4,4}
+
+BatchManagerProfile *BMProfile = 
+batchManager->allocateSpace(BatchManager::Type::Static,BatchManager::Buffers::VBO|BatchManager::Buffers::EBO,attributes);
+//>>ERROR no such layout
+
+loop
+{
+shaders[i].Use(){
+VAOs.Use();
+shader.Use();
+};
+shaders[i].DrawRelatedObjects();
+
+
+}
+*/
+class LD
+{
+	
+	void Draw()
+	{
+		
+	}
+	
+	int id;
+
+};
+class BD
+{
+	
+	void Draw()
+	{
+		
+	}
+
+	int id;
+};
+
+class Line
+{
+	Line(Drawer ld);
+	
+	Draw()
+	{
+		AddDrawCall(ld.Draw);
+	}
+	
+}
+
+
+
+class ShManager
+{
+	Shader* LDSHader;
+	Shader* BDSHader;
+	
+	init()
+	{
+		
+		AddShader(data, LDShader,LDIst); //sh1
+		AddShader(data, BDSHader); //sh1
+		
+		
+		//Init objects
+		
+		Line line1(LD::GetInstanse());
+		Line line2(BD::GetInstanse());
+		
+		line1.Draw();
+		line2.Draw();
+			
+		
+	}
+	
+	DrawAll()
+	{
+		LDShader.Use()
+		LDShader.AllRelatedObjectsDraw()
+		
+		BDSHader.Use()
+		BDSHader.AllRelatedObjectsDraw()
+		
+	}
+	
+	void AddShader(vector data, const Shader& shader);
+}

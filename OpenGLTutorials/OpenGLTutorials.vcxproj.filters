@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Line\LineDrawers">
       <UniqueIdentifier>{5e549321-d63a-47ed-956d-b49973fccf34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\BufferManager">
+      <UniqueIdentifier>{5a2d936c-8400-4865-9770-9f3b09c1bf44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="LineDrawer.h">
       <Filter>Source Files\Line\LineDrawers</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferManager.h">
+      <Filter>Source Files\BufferManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

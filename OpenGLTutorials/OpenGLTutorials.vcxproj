@@ -152,6 +152,7 @@
     <ClCompile Include="std_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BufferManager.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="LineDrawer.h" />
     <ClInclude Include="ShaderManager.h" />

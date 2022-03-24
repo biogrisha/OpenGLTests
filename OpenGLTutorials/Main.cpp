@@ -9,9 +9,9 @@
 #include <vector>
 #include <iostream>
 
-#include "ShaderManager.h"
+#include "BufferManager.h"
 #include "Rectangle.h"
-
+using namespace std;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
@@ -19,7 +19,7 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-Rectangle* rect;
+
 int main()
 {
 
@@ -54,25 +54,40 @@ int main()
         return -1;
     }
 
-    // build and compile our shader program
-    // ------------------------------------
+    Shader ourShader("TrivialVShader.vs", "TrivialFShader.fs");
+    vector<float> data = {
+        // positions          
+         0.5f,  0.5f, 0.0f,   
+         0.5f, -0.5f, 0.0f,   
+        -0.5f, -0.5f, 0.0f,   
+        -0.5f,  0.5f, 0.0f   
+    };
 
-    std::vector<Shader::ShaderData> shaders1 =
-    { 
-        Shader::ShaderData(Shader::Type::VERTEX,"VShader.vs") ,
-        Shader::ShaderData(Shader::Type::GEOMETRY,"GShader.gs"),
-        Shader::ShaderData(Shader::Type::FRAGMENT,"FShader.fs")
-     };
-
-    ShaderManager* shManager = ShaderManager::getInstance();
-    shManager->AddProgram("RoundRect",shaders1);
-    glm::vec3 pos(0, 0, 0);
-    glm::vec3 color(1, 0, 0);
-    rect = new Rectangle (0.9,0.9, pos,color, 0.1);
+    unsigned int indices[] = {
+        0, 1, 3, // first triangle
+        1, 2, 3  // second triangle
+    };
+    unsigned int VAO, EBO;
+    glGenVertexArrays(1, &VAO);
     
-    shManager->GetProgram("RoundRect")->use();
-    
+    glGenBuffers(1, &EBO);
 
+    glBindVertexArray(VAO);
+
+    BaseVBO::BufferSettings bs;
+    bs.size = data.size();
+    VBO<float> vBuffer(bs);
+    vBuffer.AddData(data,0);
+
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    vBuffer.Unbind();
+
+    
     while (!glfwWindowShouldClose(window))
     {
         // input
@@ -83,9 +98,11 @@ int main()
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        ourShader.use();
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-
-        rect->Draw();
+       
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -97,7 +114,7 @@ int main()
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
-    delete rect;
+    
     glfwTerminate();
     return 0;
 }
@@ -109,17 +126,7 @@ void processInput(GLFWwindow* window)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        rect->SetX(rect->GetX() - 0.001);
-
-    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        rect->SetX(rect->GetX() + 0.001);
-
-    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        rect->SetY(rect->GetY() - 0.001);
-
-    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-        rect->SetY(rect->GetY() + 0.001);
+   
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

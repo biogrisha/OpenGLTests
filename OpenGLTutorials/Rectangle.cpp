@@ -47,8 +47,6 @@ Rectangle::Rectangle(float width, float height, glm::vec3 pos, glm::vec3 color, 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
-    
-
 
 
 }
@@ -57,6 +55,7 @@ Rectangle::~Rectangle()
 {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 }
 
 void Rectangle::Draw()
